@@ -70,8 +70,15 @@ export function RecentExpenses() {
       )
       .subscribe();
 
+    // 监听自定义事件，当有新消费记录添加时刷新数据
+    const handleExpenseAdded = () => {
+      fetchRecentExpenses();
+    };
+    window.addEventListener("expense-added", handleExpenseAdded);
+
     return () => {
       supabase.removeChannel(channel);
+      window.removeEventListener("expense-added", handleExpenseAdded);
     };
   }, [supabase]);
 

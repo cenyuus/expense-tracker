@@ -69,6 +69,9 @@ export function ExpenseForm() {
       setTimePeriod("上午");
       setPaymentMethod("兴业银行信用卡");
 
+      // 触发自定义事件通知其他组件刷新数据
+      window.dispatchEvent(new CustomEvent("expense-added"));
+
       // 刷新页面以更新今日汇总
       router.refresh();
     } catch (err) {
