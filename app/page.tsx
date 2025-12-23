@@ -1,5 +1,6 @@
 import { TodaySummary } from "@/components/today-summary";
 import { ExpenseForm } from "@/components/expense-form";
+import { RecentExpenses } from "@/components/recent-expenses";
 import { LogoutButton } from "@/components/logout-button";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
@@ -37,6 +38,9 @@ export default async function HomePage() {
 
         {/* 记账表单 */}
         <ExpenseForm />
+
+        {/* 最近消费列表 */}
+        <RecentExpenses />
       </div>
     </div>
   );

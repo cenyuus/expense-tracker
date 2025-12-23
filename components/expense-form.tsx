@@ -15,6 +15,7 @@ const PAYMENT_METHODS = [
   "浦发红沙宣",
   "inmotion香港信用卡",
   "招商储蓄卡",
+  "花呗",
 ] as const;
 
 export function ExpenseForm() {
