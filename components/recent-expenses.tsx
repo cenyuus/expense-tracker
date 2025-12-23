@@ -142,13 +142,13 @@ export function RecentExpenses() {
           {expenses.map((expense) => (
             <div
               key={expense.id}
-              className="flex items-center gap-3 md:gap-4 py-2.5 px-3 border-b last:border-b-0 hover:bg-muted/50 transition-colors text-sm md:text-base"
+              className="grid grid-cols-[80px_50px_1fr_90px_120px] md:grid-cols-[100px_60px_1fr_110px_140px] items-center gap-3 md:gap-4 py-2.5 px-3 border-b last:border-b-0 hover:bg-muted/50 transition-colors text-sm md:text-base"
             >
-              <div className="font-medium min-w-[60px] md:min-w-[80px]">{formatDate(expense.date)}</div>
-              <div className="text-muted-foreground min-w-[40px] md:min-w-[50px]">{expense.time_period}</div>
-              <div className="flex-1 truncate min-w-0">{expense.item_name}</div>
-              <div className="font-semibold min-w-[70px] md:min-w-[90px] text-right">¥{Number(expense.amount).toFixed(2)}</div>
-              <div className="text-muted-foreground min-w-[100px] md:min-w-[120px] text-right truncate">
+              <div className="font-medium">{formatDate(expense.date)}</div>
+              <div className="text-muted-foreground">{expense.time_period}</div>
+              <div className="truncate min-w-0">{expense.item_name}</div>
+              <div className="font-semibold text-right">¥{Number(expense.amount).toFixed(2)}</div>
+              <div className="text-muted-foreground text-right truncate">
                 {expense.payment_method}
               </div>
             </div>
