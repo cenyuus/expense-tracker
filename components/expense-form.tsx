@@ -16,6 +16,7 @@ const PAYMENT_METHODS = [
   "inmotion香港信用卡",
   "招商储蓄卡",
   "花呗",
+  "微信零钱",
 ] as const;
 
 export function ExpenseForm() {
@@ -197,4 +198,3 @@ export function ExpenseForm() {
     </Card>
   );
 }
-

@@ -6,7 +6,7 @@ CREATE TABLE IF NOT EXISTS expenses (
   time_period VARCHAR(10) NOT NULL CHECK (time_period IN ('上午', '中午', '下午', '晚上')),
   item_name TEXT NOT NULL,
   amount DECIMAL(10, 2) NOT NULL CHECK (amount > 0),
-  payment_method VARCHAR(50) NOT NULL CHECK (payment_method IN ('兴业银行信用卡', '浦发红沙宣', 'inmotion香港信用卡', '招商储蓄卡', '花呗')),
+  payment_method VARCHAR(50) NOT NULL CHECK (payment_method IN ('兴业银行信用卡', '浦发红沙宣', 'inmotion香港信用卡', '招商储蓄卡', '花呗', '微信零钱')),
   created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
   updated_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
