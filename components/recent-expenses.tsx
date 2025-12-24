@@ -26,20 +26,15 @@ export function RecentExpenses() {
         } = await supabase.auth.getUser();
         if (!user) return;
 
-        // 计算过去三天的日期范围
+        // 只查询当天的消费记录
         const today = new Date();
-        const threeDaysAgo = new Date(today);
-        threeDaysAgo.setDate(today.getDate() - 3);
-        const startDate = threeDaysAgo.toISOString().split("T")[0];
-        const endDate = today.toISOString().split("T")[0];
+        const todayDate = today.toISOString().split("T")[0];
 
         const { data, error } = await supabase
           .from("expenses")
           .select("id, date, time_period, item_name, amount, payment_method")
           .eq("user_id", user.id)
-          .gte("date", startDate)
-          .lte("date", endDate)
-          .order("date", { ascending: false })
+          .eq("date", todayDate)
           .order("created_at", { ascending: false });
 
         if (error) throw error;
@@ -83,27 +78,8 @@ export function RecentExpenses() {
   }, [supabase]);
 
   const formatDate = (dateString: string) => {
-    const date = new Date(dateString);
-    const today = new Date();
-    const yesterday = new Date(today);
-    yesterday.setDate(today.getDate() - 1);
-    const twoDaysAgo = new Date(today);
-    twoDaysAgo.setDate(today.getDate() - 2);
-
-    const dateOnly = new Date(date.getFullYear(), date.getMonth(), date.getDate());
-    const todayOnly = new Date(today.getFullYear(), today.getMonth(), today.getDate());
-    const yesterdayOnly = new Date(yesterday.getFullYear(), yesterday.getMonth(), yesterday.getDate());
-    const twoDaysAgoOnly = new Date(twoDaysAgo.getFullYear(), twoDaysAgo.getMonth(), twoDaysAgo.getDate());
-
-    if (dateOnly.getTime() === todayOnly.getTime()) {
-      return "今天";
-    } else if (dateOnly.getTime() === yesterdayOnly.getTime()) {
-      return "昨天";
-    } else if (dateOnly.getTime() === twoDaysAgoOnly.getTime()) {
-      return "前天";
-    } else {
-      return `${date.getMonth() + 1}月${date.getDate()}日`;
-    }
+    // 由于只显示当天的记录，直接返回"今天"
+    return "今天";
   };
 
   if (loading) {
@@ -113,7 +89,9 @@ export function RecentExpenses() {
           <CardTitle className="text-xl md:text-2xl">最近消费</CardTitle>
         </CardHeader>
         <CardContent>
-          <div className="text-center py-4 text-muted-foreground">加载中...</div>
+          <div className="text-center py-4 text-muted-foreground">
+            加载中...
+          </div>
         </CardContent>
       </Card>
     );
@@ -126,7 +104,9 @@ export function RecentExpenses() {
           <CardTitle className="text-xl md:text-2xl">最近消费</CardTitle>
         </CardHeader>
         <CardContent>
-          <div className="text-center py-4 text-muted-foreground">暂无消费记录</div>
+          <div className="text-center py-4 text-muted-foreground">
+            暂无消费记录
+          </div>
         </CardContent>
       </Card>
     );
@@ -147,7 +127,9 @@ export function RecentExpenses() {
               <div className="font-medium">{formatDate(expense.date)}</div>
               <div className="text-muted-foreground">{expense.time_period}</div>
               <div className="truncate min-w-0">{expense.item_name}</div>
-              <div className="font-semibold text-right">¥{Number(expense.amount).toFixed(2)}</div>
+              <div className="font-semibold text-right">
+                ¥{Number(expense.amount).toFixed(2)}
+              </div>
               <div className="text-muted-foreground text-right truncate">
                 {expense.payment_method}
               </div>
@@ -158,4 +140,3 @@ export function RecentExpenses() {
     </Card>
   );
 }
-
